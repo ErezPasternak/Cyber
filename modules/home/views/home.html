@@ -36,7 +36,7 @@
                                         <div class="body text-center">
                                             <div class="apps-thm clearfix">
                                                 <div class="thumb" ng-repeat="a in :: d.apps" uib-tooltip="{{:: a.title}}">
-                                                    <img data-ng-src="{{:: a.icon}}" alt="{{:: a.title}}" />
+                                                    <img ng-src="{{:: imagePath + a.icon}}" alt="{{:: a.title}}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -67,7 +67,7 @@
                         <div class="content">
                             <div class="content-body">
                                 <div class="empty-body clearfix text-center">
-                                    <h3 class="title h4 weight-middle block-mdß">Customize<br>your Desktop</h3>
+                                    <h3 class="title h4 weight-middle block-mdß">Customize<br>your Applications</h3>
                                     <div class="own-circle-cnt block-md">
                                         <a class="btn btn-circle" href="#/build">
                                             <div class="ratio-content">
@@ -82,7 +82,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="txt">Build your<br>Own Desktop</div>
+                                                    <div class="txt">Build your<br>Own Packages</div>
                                                 </div>
                                             </div>
                                         </a>

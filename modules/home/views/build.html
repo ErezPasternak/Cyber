@@ -127,14 +127,10 @@
                                                     <div class="txt w-ic">
                                                         <div class="pd-tbl">
                                                             <div class="pd-col addon">
-                                                                <img ng-src="{{:: d.icon}}" alt="{{:: d.title}}" />
+                                                                <img ng-src="{{:: imagePath + d.icon}}" alt="{{:: d.title}}" />
                                                             </div>
                                                             <div class="pd-col">
-                                                                {{:: d.title}}. 
-                                                                <any ng-if=":: d.price > 0"><strong>${{:: d.price}}</strong><span class="weight-light">/month</span></any>
-                                                                <any ng-if=":: d.price === 0">
-                                                                    <span class="weight-light">(free)</span>
-                                                                </any>
+                                                                {{:: d.title}}. <strong>${{:: d.price}}</strong><span class="weight-light">/month</span>
                                                             </div>
                                                         </div>
                                                     </div>

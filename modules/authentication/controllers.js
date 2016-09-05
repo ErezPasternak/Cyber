@@ -5,8 +5,8 @@ angular.module(['Authentication'])
 .controller('registerController',function ($scope, $rootScope, $location, $http , AuthenticationService, Page) {
         $rootScope.compactWidthPage =true;
     
-       	Page.setTitle('Student Application Portal');
-	
+        Page.setTitle('Student Portal');
+
         // reset login status
         AuthenticationService.ClearCredentials();
         //login-register
@@ -47,7 +47,7 @@ angular.module(['Authentication'])
 .controller('loginDeskController', function($scope, $rootScope, $location, $http, Page , $window) {
     $rootScope.compactWidthPage =true;
     
-    Page.setTitle('Service Provider Desktop as a Service (DaaS) Portal');
+    Page.setTitle('Student Portal');
     
     $scope.login = function () {
         $scope.dataLoading = true;
@@ -77,6 +77,7 @@ angular.module(['Authentication'])
         }); 
          
     };
+    
     
     //caurusel
       $scope.myInterval = 8500;

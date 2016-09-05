@@ -4,16 +4,15 @@ angular.module('Desk', [])
 
     .controller('selectDeskController', function ($scope,Page, $rootScope, $location, $http, ConfigDesk) {
     $rootScope.compactWidthPage =false;
-    Page.setTitle('Select Your Desktop Profile or Build Your Own');
+    Page.setTitle('Select Your Student Profile or Build Your own Application Package');
     $scope.configDesk = ConfigDesk;
     $scope.selectDesk = ConfigDesk.getSelectDesk();
     $scope.imagePath =  ConfigDesk.getImagePath();
 
     $rootScope.isAccessDesk =false;
     $scope.selectedDesktop = {};
-	
-	
-	
+
+
     /* Use this for real 
     ----------------------------------------------*/
     $scope.sendDesk = function () {
@@ -33,10 +32,10 @@ angular.module('Desk', [])
             $rootScope.isAccessDesk =true;
             // set data to access page
             $rootScope.accessData = {
-                username: 'XXX',
-                password: 'XXX',
-                email: 'XXX@XXX.com',
-                url: 'https://air.ericom.com/',
+                username: 'User',
+                password: 'Password',
+                email: 'user@ericom.com',
+                url: 'https://an.ericom.com/daas.htm?username=demo21?password=Ericom123$&autostart=true',
             };
             $location.path('/access');
         }, function errorCallback(response) {
@@ -48,7 +47,7 @@ angular.module('Desk', [])
 
     .controller('buildDeskController', function ($scope, Page, $rootScope, $location, $http, ConfigDesk) {
     $rootScope.compactWidthPage =false;
-    Page.setTitle('Customize your Desktop, Applications and Services');
+    Page.setTitle('Build you own Package of applicatons');
 
     $scope.config = ConfigDesk.getConfig();
     $scope.imagePath =  ConfigDesk.getImagePath();
@@ -66,7 +65,6 @@ angular.module('Desk', [])
         });
         return  el;
     };
-	
 
     /* Use this for real 
     ----------------------------------------------*/
@@ -90,7 +88,7 @@ angular.module('Desk', [])
                 username: 'XXX',
                 password: 'XXX',
                 email: 'XXX@XXX.com',
-                url: 'https://www.blender.org/',
+                url: 'https://an.ericom.com/daas.htm?username=demo21?password=Ericom123$&autostart=true',
             };
             $location.path('/access');
         }, function errorCallback(response) {
@@ -113,87 +111,59 @@ angular.module('Desk', [])
 
 })
 
-.factory('ConfigDesk', function($route,$location,$rootScope, ApplicationService){
-	if (!('DefaultApplications' in $rootScope)) {
-		$rootScope.DefaultApplications = {};
-		ApplicationService.GetDefaultApplications(function(response){
-			if(!!response && 'TaskWorkers' in response) {
-				$rootScope.DefaultApplications = response;
-			} else {
-				$rootScope.DefaultApplications = null;
-			}
-		});
-	}
-	if(!('AllApplications' in $rootScope)) {
-		$rootScope.AllApplications = {};
-		ApplicationService.GetCustomApplications(function(response){
-			if(!!response && 'Office' in response) {
-				$rootScope.AllApplications = response;
-			} else {
-				$rootScope.AllApplications = null;
-			}
-		});	
-	}
-	
-	
+    .factory('ConfigDesk', function($route,$location,$rootScope){
     var selectDesk = [{
         id:1,
         title:'Health Students',   
-        description:'Helpdesk, Call Center, Operation',   
+        description:'BA , MA, PhD',   
         price:'19',   
         price_term:'month',   
         icon:'d-ic-1.png' , 
         hardware:['1 vCPU','4  GB RAM','50 GB Storage'],  
-        apps:$rootScope.DefaultApplications['TaskWorkers']  
+        apps:[{
+            title:'Chrome', icon:'chrome.png' 
+        },{
+            title:'Acrobat Reader', icon:'acrobat.png' 
+        },{
+            title:'Outlook 2013', icon:'outlook.svg' 
+        }]  
     },{
         id:2,
         title:'Education Students',   
-        description:'Marketing, Finance, Administration',   
+        description:'MA, BA',   
         price:'32',   
         price_term:'month',   
         icon:'d-ic-2.png' , 
         hardware:['2 vCPU','8 GB RAM','200 GB Storage'],  
-        apps:$rootScope.DefaultApplications['KnowledgeWorkers'] 
+        apps:[{
+            title:'Chrome', icon:'chrome.png' 
+        },{
+            title:'Acrobat Reader', icon:'acrobat.png' 
+        },{
+            title:'MC Office 2013', icon:'mc-office.svg' 
+        },{
+            title:'SAP', icon:'sap.png' 
+        }]  
     },{
         id:3,
-        title:'Faculty Personal',   
-        description:'Sales, Field Engineers, Executives',   
+        title:'Economics Students',   
+        description:'BA, MBA, Executive MBA, PhD',   
         price:'45',   
         price_term:'month',   
         icon:'d-ic-3.png' , 
         hardware:['4 vCPU','16 GB RAM','500 GB Storage'],  
-        apps:$rootScope.DefaultApplications['MobileWorkers']
+        apps:[{
+            title:'Chrome', icon:'chrome.png' 
+        },{
+            title:'Acrobat Reader', icon:'acrobat.png' 
+        },{
+            title:'MC Office 2013', icon:'mc-office.svg' 
+        },{
+            title:'Salesforce', icon:'salesfors.png' 
+        },{
+            title:'SAP', icon:'sap.png' 
+        }]  
     }];
-	var getAppPrice = function(appName) {
-		var defaultPrice = 0;
-		var price = defaultPrice;
-		var apps = {
-			"Internet Explorer": 3,
-			"Command Prompt": 5
-		}
-		if (appName in apps) {
-			price = apps[appName]
-		} else price = defaultPrice;
-		return price;
-	}
-	var getTabbedApps = function() {
-		var apps = [];
-		var tab = {};
-		for(var elem in $rootScope.AllApplications){
-			tab = {};
-			tab.title = elem;
-			tab.options = [];
-			for(var item in $rootScope.AllApplications[elem]) {
-				tab.options.push({
-					title: $rootScope.AllApplications[elem][item].title,
-					icon: $rootScope.AllApplications[elem][item].icon,
-					price: getAppPrice($rootScope.AllApplications[elem][item].title)
-				})
-			}
-			apps.push(tab);			
-		}
-		return apps;
-	}
     var config = {
         hardware: {
             'title':'Virtual Hardware',
@@ -201,19 +171,19 @@ angular.module('Desk', [])
                 'title':'Value Package',
                 'description':'1 vCPU, 4 GB RAM, 50 GB Storage',
                 id:1,
-                'price':15,
+                'price':19,
                 'isRequired':true
             },{
                 'title':'Standard Package',
                 'description':'2 vCPU, 8  GB RAM, 200 GB Storage',
                 id:2,
-                'price':21,
+                'price':32,
                 'isRequired':true
             },{
                 'title':'Advanced Package',
                 'description':'4 vCPU, 16 GB RAM, 500 GB Storage',
                 id:3,
-                'price':29,
+                'price':45,
                 'isRequired':true
             }]
         },
@@ -221,17 +191,13 @@ angular.module('Desk', [])
             'title':'Operating System',
             'options':[{
                 'title':'Windows 7',
-                'price':0,
+                'price':2,
             },{
                 'title':'Windows 8',
-                'price':0,
+                'price':10,
             },{
                 'title':'Ubuntu 14',
-                'price':0,
-                'isDisable':'true',
-            },{
-                'title':'Windows 10',
-                'price':0,
+                'price':1500,
                 'isDisable':'true',
             }]
         },
@@ -239,22 +205,77 @@ angular.module('Desk', [])
             'title':'Services',
             'options':[{
                 'title':'Security',
-                'price':1
+                'price':7
             },{
                 'title':'Backup & Restore',
-                'price':1
+                'price':7
             },{
                 'title':'Web Filtering',
-                'price':1,
+                'price':7,
             }]
         },
         apps: {
             'title':'Applications',
-            'tabs': getTabbedApps(),
+            'tabs':[
+                {
+                    title : 'Health',
+                    options :[{
+                        title :'Microsoft Office 2013',
+                        icon :'mc-office.svg',
+                        price :  1
+                    },{
+                        title :'Word 2013',
+                        icon :'mc-word.svg',
+                        price : 10
+                    },{
+                        title :'Outlook 2013',
+                        icon :'outlook.svg',
+                        price : 10
+                    },{
+                        title :'Exel 2013',
+                        icon :'exel.svg',
+                        price : 10
+                    },{
+                        title :'PPT 2013',
+                        icon :'powepoint.svg',
+                        price : 10
+                    },{
+                        title :'NXl 2013',
+                        icon :'nvc.svg',
+                        price : 10
+                    },{
+                        title :'Access 2013',
+                        icon :'access.svg',
+                        price : 10
+                    },{
+                        title :'Access 2013',
+                        icon :'access.svg',
+                        price : 10,
+                        isDisable: true,
+                    }]
+                },{
+                    title : 'Education',
+                    options :[{
+                        title :'Microsoft Office 2015',
+                        icon :'mc-office.svg',
+                        price :2
+                    }]
+                },{
+                    title : 'Economics',
+                    options :[{
+                        title :'Whatever',
+                        icon :'mc-office.svg',
+                        price :2
+                    },{
+                        title :'test',
+                        icon :'mc-office.svg',
+                        price :2
+                    }]
+                }
+            ],
 
         }
     };
-
     var imagePath = 'layout/icons/';
     return {
         getSelectDesk: function() { return selectDesk;},
